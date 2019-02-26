@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import {Button} from "@material-ui/core";
-import {ORDERS} from "./ORDERS";
+import {ORDERS} from "./ordersData";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
@@ -16,20 +16,22 @@ class OrderFilter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      contractor: "",
+      contractor: [],
       selectedDate: new Date()
     }
   }
 
-  handleChange = event => {
+  handleContractorSelect = event => {
     this.setState({contractor: event.target.value});
   };
   handleDateChange = date => {
     this.setState({selectedDate: date});
+    console.log(date)
   };
 
   render() {
-    return <form noValidate>
+    console.log(this.state.selectedDate)
+    return <form>
       <TextField
         id="datetime-local"
         label="С выбранного периода"
@@ -49,30 +51,23 @@ class OrderFilter extends React.Component {
         }}
       />
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
-        <DatePicker>
+        <DatePicker
           keyboard
           margin="normal"
           label="С выбранного периода"
           value={this.state.selectedDate}
           onChange={this.handleDateChange}
-          disableOpenOnEnter
-        </DatePicker>
+          />
       </MuiPickersUtilsProvider>
-      {/*<FormControl>
+      <FormControl>
         <InputLabel shrink htmlFor="select-multiple-native">
           Native
         </InputLabel>
         <Select
           multiple
           value={this.state.contractor}
-          onChange={this.handleChange}
+          onChange={this.handleContractorSelect}
           input={<Input id="select-multiple-chip"/>}
-          renderValue={<div>
-            {this.state.name && this.state.map(({contractor}) => (
-              <Chip key={contractor} label={contractor}/>
-            ))}
-          </div>
-            }
         >
           {ORDERS && ORDERS.map(({contractor}) => (
             <MenuItem key={contractor} value={contractor}>
@@ -80,7 +75,7 @@ class OrderFilter extends React.Component {
             </MenuItem>
           ))}
         </Select>
-      </FormControl>*/}
+      </FormControl>
       <Button variant={"outlined"}>Фильтровать</Button>
     </form>
   }
