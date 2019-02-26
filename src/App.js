@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import TopMenu from "./TopMenu";
+import OrderPage from "./OrderPage"
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-
+      <TopMenu/>
+      <OrderPage/>
       </div>
     );
   }
