@@ -9,7 +9,7 @@ import TableBody from "@material-ui/core/TableBody";
 
 const styles = {
   paper: {
-    margin: '10px'
+    margin: 10,
   },
 };
 
@@ -17,7 +17,11 @@ class OrderTable extends React.Component {
 
 
   render() {
-
+    const chosenOrdersArray = this.props.filteredOrdersArray.length > 0
+      ? this.props.filteredOrdersArray
+      : ORDERS.length > 0
+        ? ORDERS
+        : [];
     return <Paper style={styles.paper}>
       <Table>
         <TableHead>
@@ -34,22 +38,7 @@ class OrderTable extends React.Component {
           </TableRow>
         </TableHead>
         <TableBody>
-          {this.props.filteredOrdersArray
-          && this.props.filteredOrdersArray.map((row, id) => (
-            <TableRow key={id}>
-              <TableCell align="left">
-                {row.orderNumber}
-              </TableCell>
-              <TableCell align="right">{row.date}</TableCell>
-              <TableCell align="right">{row.contractor}</TableCell>
-              <TableCell align="right">{row.orderSum}</TableCell>
-              <TableCell align="right">{row.currency}</TableCell>
-              <TableCell align="right">{row.vendorCode}</TableCell>
-              <TableCell align="right">{row.goods}</TableCell>
-              <TableCell align="right">{row.status}</TableCell>
-              <TableCell align="right">{row.comments}</TableCell>
-            </TableRow>
-          )) || ORDERS.map((row, id) => (
+          {chosenOrdersArray.map((row, id) => (
             <TableRow key={id}>
               <TableCell align="left">
                 {row.orderNumber}

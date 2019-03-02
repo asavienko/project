@@ -9,7 +9,7 @@ import Grid from "@material-ui/core/Grid";
 class TopMenu extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: 0};
+    this.state = {currentNav: 0};
   }
 
   handleChange(event, value) {
@@ -20,7 +20,7 @@ class TopMenu extends React.Component {
     return <Grid item lg={12}>
       <NoSsr>
         <AppBar position={"static"}>
-          <Tabs variant="fullWidth" value={this.state.value} onChange={this.handleChange}>
+          <Tabs variant="fullWidth" value={this.state.currentNav} onChange={this.handleChange}>
             <Tab label="ПРОДАЖИ" href="page1"/>
             <Tab label="СКЛАД" href="page2"/>
             <Tab label="ЗАКУПКИ" href="page3"/>

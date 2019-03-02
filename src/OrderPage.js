@@ -7,8 +7,8 @@ import {ORDERS} from "./ordersData";
 
 const styles = {
   paper: {
-    margin: '10px',
-    padding: '10px'
+    margin: 10,
+    padding: 10,
   },
 };
 
@@ -17,18 +17,25 @@ class OrderPage extends React.Component {
     super(props);
     this.state = {
       contractor: [],
-      orderStatus: [],
+      status: [],
       selectedFromDate: null,
       selectedTillDate: null,
+      filteredOrdersArray: [],
+      currentFilters: {},
     };
-    this.filteredOrdersArray = null;
   }
 
   handleContractorSelect = event => {
+    const newCurrentFilter = Object.assign(this.state.currentFilters,
+      {contractor: event.target.value});
     this.setState({contractor: event.target.value});
+    this.setState({currentFilters: newCurrentFilter});
   };
   handleOrderStatusSelect = event => {
-    this.setState({orderStatus: event.target.value});
+    const newCurrentFilter = Object.assign(this.state.currentFilters,
+      {status: event.target.value});
+    this.setState({status: event.target.value});
+    this.setState({currentFilters: newCurrentFilter});
   };
   handleFromDateChange = date => {
     this.setState({selectedFromDate: date});
@@ -38,17 +45,18 @@ class OrderPage extends React.Component {
   };
 
   applyFilter = () => {
-    this.filteredOrdersArray = ORDERS && ORDERS.filter(value => {
-      for (let key of this.state.contractor) {
-        if (value.contractor.includes(key)) {
+    const keyArr = Object.keys(this.state.currentFilters);
+    const filteredOrdersArray = ORDERS && ORDERS.filter(order => {
+      return keyArr.every(eachKey => {
+        if (!this.state.currentFilters[eachKey].length) {
           return true
         }
-      }
+
+        return this.state.currentFilters[eachKey].includes(order[eachKey])
+      });
+
     });
-    if (this.filteredOrdersArray.length === 0) {
-      this.filteredOrdersArray = null
-    }
-    console.log(this.filteredOrdersArray)
+    this.setState({filteredOrdersArray})
   };
 
 
@@ -66,7 +74,7 @@ class OrderPage extends React.Component {
             selectedFromDate={this.state.selectedFromDate}
             selectedTillDate={this.state.selectedTillDate}
             contractor={this.state.contractor}
-            orderStatus={this.state.orderStatus}
+            orderStatus={this.state.status}
             applyFilter={this.applyFilter.bind(this)}
           />
 
@@ -79,7 +87,7 @@ class OrderPage extends React.Component {
       </Grid>
       <Grid item xs={12}>
         <OrderTable
-          filteredOrdersArray={this.filteredOrdersArray}
+          filteredOrdersArray={this.state.filteredOrdersArray}
         />
       </Grid>
     </Grid>

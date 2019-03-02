@@ -30,19 +30,17 @@ class OrderFilter extends React.Component {
       <form style={styles.root}>
         <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
           <DatePicker
-            margin="normal"
             label="С выбранного периода"
             value={this.props.selectedFromDate}
             onChange={this.props.handleFromDateChange}
           />
           <DatePicker
-            margin="normal"
             label="По выбранный период"
             value={this.props.selectedTillDate}
             onChange={this.props.handleTillDateChange}
           />
         </MuiPickersUtilsProvider>
-        <FormControl style={styles.formControl} margin="normal">
+        <FormControl style={styles.formControl}>
           <InputLabel htmlFor="select-multiple">
             Контрагент
           </InputLabel>
@@ -59,7 +57,7 @@ class OrderFilter extends React.Component {
             ))}
           </Select>
         </FormControl>
-        <FormControl style={styles.formControl} margin="normal">
+        <FormControl style={styles.formControl}>
           <InputLabel htmlFor="select-multiple">
             Статус заказа
           </InputLabel>
