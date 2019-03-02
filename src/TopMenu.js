@@ -3,9 +3,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import NoSsr from "@material-ui/core/NoSsr";
 import Tab from "@material-ui/core/Tab";
-import Paper from "@material-ui/core/Paper";
-import ShowCourse from "./ShowCourse";
-import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
 
 
 class TopMenu extends React.Component {
@@ -19,21 +17,25 @@ class TopMenu extends React.Component {
   }
 
   render() {
-    return <NoSsr>
-      <AppBar>
-        <Tabs centered={false} value={this.state.value} onChange={this.handleChange}>
-          <Tab label="ПРОДАЖИ" href="page1"/>
-          <Tab label="СКЛАД" href="page2"/>
-          <Tab label="ЗАКУПКИ" href="page3"/>
-          <Tab label="КОМПАНИЯ" href="page4"/>
-          <Tab label="СПРАВОЧНИК" href="page5"/>
-          <Tab label="ОТЧЕТЫ" href="page6"/>
-          <Tab label="НАСТРОЙКИ" href="page7"/>
-          <ShowCourse/>
-        </Tabs>
+    return <Grid item lg={12}>
+      <NoSsr>
+        <AppBar position={"static"}>
+          <Tabs variant="fullWidth" value={this.state.value} onChange={this.handleChange}>
+            <Tab label="ПРОДАЖИ" href="page1"/>
+            <Tab label="СКЛАД" href="page2"/>
+            <Tab label="ЗАКУПКИ" href="page3"/>
+            <Tab label="КОМПАНИЯ" href="page4"/>
+            <Tab label="СПРАВОЧНИК" href="page5"/>
+            <Tab label="ОТЧЕТЫ" href="page6"/>
+            <Tab label="НАСТРОЙКИ" href="page7"/>
 
-      </AppBar>
-    </NoSsr>
+          </Tabs>
+
+        </AppBar>
+
+      </NoSsr>
+
+    </Grid>
   }
 }
 
