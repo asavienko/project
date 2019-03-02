@@ -23,45 +23,23 @@ const styles = {
 };
 
 class OrderFilter extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      contractor: [],
-      orderStatus: [],
-      selectedFromDate: null,
-      selectedTillDate: null,
-    }
-  }
 
-  handleContractorSelect = event => {
-    this.setState({contractor: event.target.value});
-    console.log(event.target.value)
-  };
-  handleOrderStatusSelect = event => {
-    this.setState({orderStatus: event.target.value});
-  };
-  handleFromDateChange = date => {
-    this.setState({selectedFromDate: date});
-  };
-  handleTillDateChange = date => {
-    this.setState({selectedTillDate: date});
-  };
 
   render() {
     return <Grid item xs={12}>
-    <form style={styles.root}>
+      <form style={styles.root}>
         <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
           <DatePicker
             margin="normal"
             label="С выбранного периода"
-            value={this.state.selectedFromDate}
-            onChange={this.handleFromDateChange}
+            value={this.props.selectedFromDate}
+            onChange={this.props.handleFromDateChange}
           />
           <DatePicker
             margin="normal"
             label="По выбранный период"
-            value={this.state.selectedTillDate}
-            onChange={this.handleTillDateChange}
+            value={this.props.selectedTillDate}
+            onChange={this.props.handleTillDateChange}
           />
         </MuiPickersUtilsProvider>
         <FormControl style={styles.formControl} margin="normal">
@@ -70,8 +48,8 @@ class OrderFilter extends React.Component {
           </InputLabel>
           <Select
             multiple
-            value={this.state.contractor}
-            onChange={this.handleContractorSelect}
+            value={this.props.contractor}
+            onChange={this.props.handleContractorSelect}
             input={<Input id="select-multiple"/>}
           >
             {ORDERS && ORDERS.map(({contractor}) => (
@@ -87,8 +65,8 @@ class OrderFilter extends React.Component {
           </InputLabel>
           <Select
             multiple
-            value={this.state.orderStatus}
-            onChange={this.handleOrderStatusSelect}
+            value={this.props.orderStatus}
+            onChange={this.props.handleOrderStatusSelect}
             input={<Input id="select-multiple"/>}
           >
             {OrderStatus && OrderStatus.map((status, id) => (
@@ -99,8 +77,8 @@ class OrderFilter extends React.Component {
           </Select>
         </FormControl>
 
-    </form>
-      <Button variant={"outlined"}>Фильтровать</Button>
+      </form>
+      <Button variant={"outlined"} onClick={this.props.applyFilter}>Фильтровать</Button>
     </Grid>
   }
 }

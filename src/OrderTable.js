@@ -13,10 +13,12 @@ const styles = {
   },
 };
 
-class OrderTable extends React.Component{
+class OrderTable extends React.Component {
+
 
   render() {
-    return<Paper style={styles.paper}>
+
+    return <Paper style={styles.paper}>
       <Table>
         <TableHead>
           <TableRow>
@@ -32,7 +34,22 @@ class OrderTable extends React.Component{
           </TableRow>
         </TableHead>
         <TableBody>
-          {ORDERS.map((row, id) => (
+          {this.props.filteredOrdersArray
+          && this.props.filteredOrdersArray.map((row, id) => (
+            <TableRow key={id}>
+              <TableCell align="left">
+                {row.orderNumber}
+              </TableCell>
+              <TableCell align="right">{row.date}</TableCell>
+              <TableCell align="right">{row.contractor}</TableCell>
+              <TableCell align="right">{row.orderSum}</TableCell>
+              <TableCell align="right">{row.currency}</TableCell>
+              <TableCell align="right">{row.vendorCode}</TableCell>
+              <TableCell align="right">{row.goods}</TableCell>
+              <TableCell align="right">{row.status}</TableCell>
+              <TableCell align="right">{row.comments}</TableCell>
+            </TableRow>
+          )) || ORDERS.map((row, id) => (
             <TableRow key={id}>
               <TableCell align="left">
                 {row.orderNumber}
